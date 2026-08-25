@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>海运物流提醒</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>🚢 海运物流提醒</h1>
+      <p>管理在途货物、ETA、免堆期和到港提醒</p>
+    </div>
+    <button id="notifyBtn" class="secondary">开启浏览器提醒</button>
+  </header>
+
+  <main class="container">
+    <section class="stats" id="stats"></section>
+
+    <section class="panel">
+      <div class="panel-title"><h2>新增货物</h2><span>数据保存在本机浏览器</span></div>
+      <form id="shipmentForm">
+        <div class="grid">
+          <label>客户<input name="customer" required placeholder="例如 Strong Power" /></label>
+          <label>合同号<input name="contract" placeholder="EM2026-001" /></label>
+          <label>提单号<input name="bl" required placeholder="MEDUXV957873TD" /></label>
+          <label>船名 / 航次<input name="vessel" placeholder="MSC CLARA / FY635A" /></label>
+          <label>起运港<input name="pol" placeholder="Nansha" /></label>
+          <label>目的港<input name="pod" value="Tema" /></label>
+          <label>ETD<input name="etd" type="date" /></label>
+          <label>ETA<input name="eta" type="date" required /></label>
+          <label>免堆期（天）<input name="freeDays" type="number" min="0" value="14" /></label>
+          <label>柜号<input name="container" placeholder="MSCU1234567" /></label>
+          <label class="wide">备注<textarea name="notes" rows="2" placeholder="清关资料、客户安排等"></textarea></label>
+        </div>
+        <button class="primary" type="submit">＋ 添加货物</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <div class="panel-title"><h2>货物列表</h2><span id="count"></span></div>
+        <input id="search" class="search" placeholder="搜索客户 / 提单号 / 船名 / 柜号" />
+      </div>
+      <div id="shipments" class="shipment-list"></div>
+    </section>
+  </main>
+
+  <template id="shipmentTemplate">
+    <article class="shipment-card">
+      <div class="shipment-head">
+        <div><h3 class="customer"></h3><p class="bl"></p></div>
+        <span class="status"></span>
+      </div>
+      <div class="details"></div>
+      <div class="actions">
+        <button class="arrived secondary">标记已到港</button>
+        <button class="delete danger">删除</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
